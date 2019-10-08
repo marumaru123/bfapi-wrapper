@@ -1,4 +1,4 @@
-(defsystem cl-bitflyer-api
+(defsystem bfapi-wrapper
   :version "0.1"
   :license "MIT"
   :depends-on (:drakma
@@ -7,4 +7,4 @@
   :components ((:module "src"
                 :serial t
                 :components
-                ((:file "cl-bitflyer-api")))))
+                ((:file "bfapi-wrapper")))))

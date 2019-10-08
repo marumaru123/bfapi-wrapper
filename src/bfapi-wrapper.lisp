@@ -1,11 +1,11 @@
 (in-package :cl-user)
-(defpackage cl-bitflyer-api
+(defpackage bfapi-wrapper
   (:use :cl
         :drakma
         :ironclad
         :cl-json)
   (:export :get-markets :get-board :get-ticker :get-executions :get-board-state :get-health :get-permissions :get-balance :send-child-order :cancel-child-order :cancel-all-child-orders :get-child-orders))
-(in-package :cl-bitflyer-api)
+(in-package :bfapi-wrapper)
 
 (defparameter *endpoint-url*     "https://api.bitflyer.com")
 (defparameter *api-content-type* "application/json")
