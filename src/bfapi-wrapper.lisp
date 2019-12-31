@@ -4,7 +4,7 @@
         :drakma
         :ironclad
         :cl-json)
-  (:export :get-markets :get-board :get-ticker :get-executions :get-board-state :get-health :get-permissions :get-balance :send-child-order :cancel-child-order :cancel-all-child-orders :get-child-orders))
+  (:export :get-markets :get-board :get-ticker :get-executions :get-board-state :get-health :get-permissions :get-balance :send-child-order :cancel-child-order :cancel-all-child-orders :get-child-orders :get-trade-executions))
 (in-package :bfapi-wrapper)
 
 (defparameter *endpoint-url*     "https://api.bitflyer.com")
@@ -133,4 +133,10 @@
 
 (defun get-child-orders (key secret product-code child-order-acceptance-id)
   (let ((path (concatenate 'string "/v1/me/getchildorders?product_code=" product-code "&child_order_acceptance_id=" child-order-acceptance-id)))
+    (get-private-api key secret path)))
+
+(defun get-trade-executions (key secret &key (product-code "BTC_JPY") (count 100) (before 0) (after 0) (child-order-acceptance-id nil child-order-acceptance-id-supplied-p))
+  (let ((path (if child-order-acceptance-id-supplied-p
+		  (concatenate 'string "/v1/me/getexecutions?product_code=" product-code "&count=" (write-to-string count) "&before=" (write-to-string before) "&after=" (write-to-string after) "&child_order_acceptance_id=" child-order-acceptance-id)
+		  (concatenate 'string "/v1/me/getexecutions?product_code=" product-code "&count=" (write-to-string count) "&before=" (write-to-string before) "&after=" (write-to-string after)))))
     (get-private-api key secret path)))
