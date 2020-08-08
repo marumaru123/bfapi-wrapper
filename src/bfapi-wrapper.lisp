@@ -131,8 +131,10 @@
 	 (body          (list (cons :product_code     product-code))))
     (post-private-api key secret path body)))
 
-(defun get-child-orders (key secret product-code child-order-acceptance-id)
-  (let ((path (concatenate 'string "/v1/me/getchildorders?product_code=" product-code "&child_order_acceptance_id=" child-order-acceptance-id)))
+(defun get-child-orders (key secret product-code &optional (child-order-acceptance-id "" child-order-acceptance-id-supplied-p))
+  (let ((path (if child-order-acceptance-id-supplied-p
+		(concatenate 'string "/v1/me/getchildorders?product_code=" product-code "&child_order_acceptance_id=" child-order-acceptance-id)
+		(concatenate 'string "/v1/me/getchildorders?product_code=" product-code))))
     (get-private-api key secret path)))
 
 (defun get-trade-executions (key secret &key (product-code "BTC_JPY") (count 100) (before 0) (after 0) (child-order-acceptance-id nil child-order-acceptance-id-supplied-p))
